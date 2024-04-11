@@ -1,0 +1,330 @@
+<style type="text/css">
+    .tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;}
+    .tg td{background-color:#fff;border-bottom-width:1px;border-color:#ccc;border-style:solid;border-top-width:1px;
+      border-width:0px;color:#333;font-size:12px;overflow:hidden;padding:4px 2px;
+      word-break:normal;}
+    .tg th{background-color:#f0f0f0;border-bottom-width:1px;border-color:#ccc;border-style:solid;border-top-width:1px;
+      border-width:0px;color:#333;font-size:13px;font-weight:bold;overflow:hidden;
+      padding:5px 10px;word-break:normal;}
+    .tg .tg-wa1i{font-weight:bold;text-align:center;vertical-align:middle;border-bottom: 1px solid black;}
+    .tg .tg-buh4{background-color:#f9f9f9;text-align:left;vertical-align:top}
+    .tg .tg-4bam{background-color:#FFF;text-align:center;vertical-align:bottom}
+    .tg .tg-center{text-align:center;vertical-align:center}
+    .tg .tg-57iy{background-color:#f9f9f9;text-align:center;vertical-align:middle}
+    .tg .tg-kcps{background-color:#FFF;text-align:left;vertical-align:bottom}
+    .tg .tg-7yig{background-color:#FFF;text-align:center;vertical-align:top}
+    .tg .tg-30ck{background-color:#F3F3F3;text-align:center;vertical-align:center}
+    .tg .tg-30l{background-color:#F3F3F3;text-align:left;vertical-align:center}
+    @media screen and (max-width: 767px) {.tg {width: auto !important;}.tg col {width: auto !important;}.tg-wrap {overflow-x: auto;-webkit-overflow-scrolling: touch;}}
+    .atkname{font-weight:normal;background-color:#FFF}
+</style>
+
+<div class="tg-wrap">
+    <table class="tg" style="width: 100%;">
+    <thead>
+      <tr>
+        <th class="tg-center" rowspan="2">Name</th>
+        <th class="tg-center" rowspan="2">AttackType</th>
+        <th class="tg-wa1i" colspan="4">Norms</th>
+        <th class="tg-center" rowspan="2">Descent<br>Direction</th>
+        <th class="tg-center" rowspan="2">Optimizer</th>
+        <th class="tg-center" rowspan="2">Step size<br>Scheduler</th>
+        <th class="tg-center" rowspan="2">Loss</th>
+        <th class="tg-center" rowspan="2">Init</th>
+      </tr>
+      <tr>
+        <th class="tg-center"><span style="font-weight:normal">$\ell_0$</span></th>
+        <th class="tg-center"><span style="font-weight:normal">$\ell_1$</span></th>
+        <th class="tg-center"><span style="font-weight:normal">$\ell_2$</span></th>
+        <th class="tg-center"><span style="font-weight:normal">$\ell_\infty$</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="tg-kcps atkname">Biggio at al. (2013)</td>
+        <td class="tg-4bam">FixedBudget</span></td>
+        <td class="tg-4bam"></td>
+        <td class="tg-4bam"><span>&#10003;</span></td>
+        <td class="tg-7yig"><span>&#10003;</span></td>
+        <td class="tg-4bam"></td>
+        <td class="tg-4bam">Grad</td>
+        <td class="tg-4bam">GD</td>
+        <td class="tg-4bam">-</td>
+        <td class="tg-4bam">$f_y(\mathbf{x}, \boldsymbol{\theta})$</td>
+        <td class="tg-4bam">Zero</td>
+      </tr>
+      <tr>
+        <td class="tg-30l atkname">Szegedy et al. (2014)</td>
+        <td class="tg-30ck">MinNorm</td>
+        <td class="tg-30ck"></td>
+        <td class="tg-30ck"></td>
+        <td class="tg-30ck"></td>
+        <td class="tg-30ck"><span>&#10003;</span></td>
+        <td class="tg-30ck">Grad</td>
+        <td class="tg-30ck">L-BFGS-B</td>
+        <td class="tg-30ck">-</td>
+        <td class="tg-30ck">NCE</td>
+        <td class="tg-30ck">Zero</td>
+      </tr>
+      <tr>
+        <td class="tg-kcps atkname">FGSM (2015)</span></td>
+        <td class="tg-4bam">FixedBudget</td>
+        <td class="tg-4bam"></td>
+        <td class="tg-4bam"></td>
+        <td class="tg-4bam"></td>
+        <td class="tg-4bam"><span>&#10003;</span></td>
+        <td class="tg-4bam">Proj</td>
+        <td class="tg-4bam">GD</td>
+        <td class="tg-4bam">-</td>
+        <td class="tg-4bam">NCE</td>
+        <td class="tg-4bam">Zero</td>
+      </tr>
+      <tr>
+        <td class="tg-30l atkname">JSMA (2015)</span></td>
+        <td class="tg-30ck">MinNorm</td>
+        <td class="tg-30ck"<span>&#10003;</span></td>
+        <td class="tg-30ck"></td>
+        <td class="tg-30ck"></td>
+        <td class="tg-30ck"></td>
+        <td class="tg-30ck">Proj</td>
+        <td class="tg-30ck">GD + Mom</td>
+        <td class="tg-30ck">-</td>
+        <td class="tg-30ck">$z_y(\mathbf{x}, \boldsymbol{\theta})$</td>
+        <td class="tg-30ck">Zero</td>
+      </tr>
+      <tr>
+        <td class="tg-kcps atkname">BIM (2016)</span></td>
+        <td class="tg-4bam">FixedBudget</td>
+        <td class="tg-4bam"></td>
+        <td class="tg-4bam"></td>
+        <td class="tg-4bam"></td>
+        <td class="tg-4bam"><span>&#10003;</span></td>
+        <td class="tg-4bam">Proj</td>
+        <td class="tg-4bam">GD</td>
+        <td class="tg-4bam">-</td>
+        <td class="tg-4bam">NCE</td>
+        <td class="tg-4bam">Zero</td>
+      </tr>
+      <tr>
+        <td class="tg-30l atkname">DeepFool (2016)</span></td>
+        <td class="tg-30ck">MinNorm</td>
+        <td class="tg-30ck"></td>
+        <td class="tg-30ck"></td>
+        <td class="tg-30ck"><span>&#10003;</span></td>
+        <td class="tg-30ck"></td>
+        <td class="tg-30ck">Norm</td>
+        <td class="tg-30ck">GD</td>
+        <td class="tg-30ck">-</td>
+        <td class="tg-30ck">DL</td>
+        <td class="tg-30ck">Zero</td>
+      </tr>
+      <tr>
+        <td class="tg-kcps atkname">CW (2017)</span></td>
+        <td class="tg-4bam">MinNorm</td>
+        <td class="tg-4bam"><span>&#10003;</span></td>
+        <td class="tg-4bam"></td>
+        <td class="tg-4bam"><span>&#10003;</span></td>
+        <td class="tg-4bam"><span>&#10003;</span></td>
+        <td class="tg-4bam">Grad</td>
+        <td class="tg-4bam">Adam</td>
+        <td class="tg-4bam">-</td>
+        <td class="tg-4bam">DL</td>
+        <td class="tg-4bam">Zero</td>
+      </tr>
+      <tr>
+        <td class="tg-30l atkname">EAD (2018)</span></td>
+        <td class="tg-30ck">MinNorm</td>
+        <td class="tg-30ck"></td>
+        <td class="tg-30ck"><span>&#10003;</span></td>
+        <td class="tg-30ck"><span>&#10003;</span></td>
+        <td class="tg-30ck"><span>&#10003;</span></td>
+        <td class="tg-30ck">Grad</td>
+        <td class="tg-30ck">GD</td>
+        <td class="tg-30ck">Poly</td>
+        <td class="tg-30ck">DL</td>
+        <td class="tg-30ck">Zero</td>
+      </tr>
+      <tr>
+        <td class="tg-kcps atkname">PGD (2018)</span></td>
+        <td class="tg-4bam">FixedBudget</td>
+        <td class="tg-4bam"></td>
+        <td class="tg-4bam"></td>
+        <td class="tg-4bam"><span>&#10003;</span></td>
+        <td class="tg-4bam"><span>&#10003;</span></td>
+        <td class="tg-4bam">Proj</td>
+        <td class="tg-4bam">GD</td>
+        <td class="tg-4bam">-</td>
+        <td class="tg-4bam">NCE</td>
+        <td class="tg-4bam">Zero</td>
+      </tr>
+      <tr>
+        <td class="tg-30l atkname">BB (2019)</span></td>
+        <td class="tg-30ck">MinNorm</td>
+        <td class="tg-30ck"><span>&#10003;</span></td>
+        <td class="tg-30ck"><span>&#10003;</span></td>
+        <td class="tg-30ck"><span>&#10003;</span></td>
+        <td class="tg-30ck"><span>&#10003;</span></td>
+        <td class="tg-30ck">Proj</td>
+        <td class="tg-30ck">L-BFGS-B</td>
+        <td class="tg-30ck">Lin</td>
+        <td class="tg-30ck">DL</td>
+        <td class="tg-30ck">Adv</td>
+      </tr>
+      <tr>
+        <td class="tg-kcps atkname">DDN (2019)</span></td>
+        <td class="tg-4bam">MinNorm</td>
+        <td class="tg-4bam"></td>
+        <td class="tg-4bam"></td>
+        <td class="tg-4bam"><span>&#10003;</span></td>
+        <td class="tg-4bam"></td>
+        <td class="tg-4bam">Norm</td>
+        <td class="tg-4bam">GD</td>
+        <td class="tg-4bam">Cos</td>
+        <td class="tg-4bam">NCE</td>
+        <td class="tg-4bam">Zero</td>
+      </tr>
+      <tr>
+        <td class="tg-30l atkname">PGD-$\ell_0$ (2019)</span></td>
+        <td class="tg-30ck">FixedBudget</td>
+        <td class="tg-30ck"><span>&#10003;</span></td>
+        <td class="tg-30ck"></td>
+        <td class="tg-30ck"></td>
+        <td class="tg-30ck"></td>
+        <td class="tg-30ck">Proj</td>
+        <td class="tg-30ck">GD</td>
+        <td class="tg-30ck">-</td>
+        <td class="tg-30ck">NCE</td>
+        <td class="tg-30ck">Zero</td>
+      </tr>
+      <tr>
+        <td class="tg-kcps atkname">TrustRegion (2019)</span></td>
+        <td class="tg-4bam">MinNorm</td>
+        <td class="tg-4bam"></td>
+        <td class="tg-4bam"></td>
+        <td class="tg-4bam"><span>&#10003;</span></td>
+        <td class="tg-4bam"><span>&#10003;</span></td>
+        <td class="tg-4bam">Grad</td>
+        <td class="tg-4bam">GD</td>
+        <td class="tg-4bam">-</td>
+        <td class="tg-4bam"></td>
+        <td class="tg-4bam"></td>
+      </tr>
+      <tr>
+        <td class="tg-30l atkname">FAB (2020)</span></td>
+        <td class="tg-30ck">MinNorm</td>
+        <td class="tg-30ck"></td>
+        <td class="tg-30ck"><span>&#10003;</span></td>
+        <td class="tg-30ck"><span>&#10003;</span></td>
+        <td class="tg-30ck"><span>&#10003;</span></td>
+        <td class="tg-30ck">Proj</td>
+        <td class="tg-30ck">GD</td>
+        <td class="tg-30ck">RoP</td>
+        <td class="tg-30ck">DL</td>
+        <td class="tg-30ck">Random</td>
+      </tr>
+      <tr>
+        <td class="tg-kcps atkname">APGD (2020)</span></td>
+        <td class="tg-4bam">FixedBudget</td>
+        <td class="tg-4bam"></td>
+        <td class="tg-4bam"></td>
+        <td class="tg-4bam"><span>&#10003;</span></td>
+        <td class="tg-4bam"><span>&#10003;</span></td>
+        <td class="tg-4bam">Proj</td>
+        <td class="tg-4bam">GD + Mom</td>
+        <td class="tg-4bam">RoP</td>
+        <td class="tg-4bam">NCE/DLR</td>
+        <td class="tg-4bam">Zero</td>
+      </tr>
+      <tr>
+        <td class="tg-30l atkname">ALMA (2021)</span></td>
+        <td class="tg-30ck">MinNorm</td>
+        <td class="tg-30ck"></td>
+        <td class="tg-30ck"><span>&#10003;</span></td>
+        <td class="tg-30ck"><span>&#10003;</span></td>
+        <td class="tg-30ck"></td>
+        <td class="tg-30ck">Grad</td>
+        <td class="tg-30ck">RMSProp + Mom</td>
+        <td class="tg-30ck">Exp</td>
+        <td class="tg-30ck">DLR</td>
+        <td class="tg-30ck">Zero</td>
+      </tr>
+      <tr>
+        <td class="tg-kcps atkname">APGD-$\ell_1$ (2021)</span></td>
+        <td class="tg-4bam">FixedBudget</td>
+        <td class="tg-4bam"></td>
+        <td class="tg-4bam"><span>&#10003;</span></td>
+        <td class="tg-4bam"></td>
+        <td class="tg-4bam"></td>
+        <td class="tg-4bam">Proj</td>
+        <td class="tg-4bam">GD + Mom</td>
+        <td class="tg-4bam">RoP</td>
+        <td class="tg-4bam">DLR</td>
+        <td class="tg-4bam">Zero</td>
+      </tr>
+      <tr>
+        <td class="tg-30l atkname">FMN (2021)</span></td>
+        <td class="tg-30ck">MinNorm</td>
+        <td class="tg-30ck"><span>&#10003;</span></td>
+        <td class="tg-30ck"><span>&#10003;</span></td>
+        <td class="tg-30ck"><span>&#10003;</span></td>
+        <td class="tg-30ck"><span>&#10003;</span></td>
+        <td class="tg-30ck">Norm</td>
+        <td class="tg-30ck">GD</td>
+        <td class="tg-30ck">Cos</td>
+        <td class="tg-30ck">DL</td>
+        <td class="tg-30ck">Any</td>
+      </tr>
+      <tr>
+        <td class="tg-kcps atkname">PDGD (2021)</span></td>
+        <td class="tg-4bam">MinNorm</td>
+        <td class="tg-4bam"></td>
+        <td class="tg-4bam"></td>
+        <td class="tg-4bam"><span>&#10003;</span></td>
+        <td class="tg-4bam"></td>
+        <td class="tg-4bam">Proj</td>
+        <td class="tg-4bam">Adam</td>
+        <td class="tg-4bam">Lin, Exp</td>
+        <td class="tg-4bam">DL</td>
+        <td class="tg-4bam">Zero</td>
+      </tr>
+      <tr>
+        <td class="tg-30l atkname">PDPGD (2021)</span></td>
+        <td class="tg-30ck">MinNorm</td>
+        <td class="tg-30ck"><span>&#10003;</span></td>
+        <td class="tg-30ck"><span>&#10003;</span></td>
+        <td class="tg-30ck"><span>&#10003;</span></td>
+        <td class="tg-30ck"><span>&#10003;</span></td>
+        <td class="tg-30ck">Prox</td>
+        <td class="tg-30ck">Adam</td>
+        <td class="tg-30ck">Lin, Exp</td>
+        <td class="tg-30ck">DL</td>
+        <td class="tg-30ck">Zero</td>
+      </tr>
+      <tr>
+        <td class="tg-kcps atkname">VFGA (2021)</span></td>
+        <td class="tg-4bam">MinNorm</td>
+        <td class="tg-4bam"><span>&#10003;</span></td>
+        <td class="tg-4bam"></td>
+        <td class="tg-4bam"></td>
+        <td class="tg-4bam"></td>
+        <td class="tg-4bam">Grad</td>
+        <td class="tg-4bam">GD$^\star$</td>
+        <td class="tg-4bam">-</td>
+        <td class="tg-4bam">$z_y(\mathbf{x}, \boldsymbol{\theta})$</td>
+        <td class="tg-4bam">Zero</td>
+      </tr>
+      <tr>
+        <td class="tg-30l atkname">$\sigma$-zero (2024)</span></td>
+        <td class="tg-30ck">MinNorm</td>
+        <td class="tg-30ck"><span>&#10003;</span></td>
+        <td class="tg-30ck"></td>
+        <td class="tg-30ck"></td>
+        <td class="tg-30ck"></td>
+        <td class="tg-30ck">Norm</td>
+        <td class="tg-30ck">Adam</td>
+        <td class="tg-30ck">Cos</td>
+        <td class="tg-30ck">DL</td>
+        <td class="tg-30ck">Zero</td>
+      </tr>
+    </tbody>
+    </table></div>
