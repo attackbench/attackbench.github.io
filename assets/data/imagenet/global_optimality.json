@@ -1,0 +1,58 @@
+{
+    "linf": [
+    {"Attack":"IMAGENET FGSM","Model":"ResNet-50","Library":"PyTorch","ASR":98.2,"GO":99.5,"Forwards":2000,"Backwards":100,"Time":3.5},
+    {"Attack":"IMAGENET PGD","Model":"VGG-16","Library":"TensorFlow","ASR":92.4,"GO":95.3,"Forwards":3000,"Backwards":150,"Time":4.8},
+    {"Attack":"DeepFool","Model":"InceptionV3","Library":"Keras","ASR":95.1,"GO":97.2,"Forwards":2500,"Backwards":120,"Time":4.1},
+    {"Attack":"CW","Model":"ResNet-101","Library":"PyTorch","ASR":89.7,"GO":93.1,"Forwards":2800,"Backwards":130,"Time":5.2},
+    {"Attack":"BIM","Model":"MobileNet","Library":"TensorFlow","ASR":94.3,"GO":96.8,"Forwards":2200,"Backwards":110,"Time":3.9},
+    {"Attack":"Momentum","Model":"DenseNet-121","Library":"Keras","ASR":91.8,"GO":94.6,"Forwards":2600,"Backwards":140,"Time":4.5},
+    {"Attack":"JSMA","Model":"ResNet-50","Library":"PyTorch","ASR":96.5,"GO":98.0,"Forwards":2400,"Backwards":125,"Time":4.0},
+    {"Attack":"EAD","Model":"VGG-19","Library":"TensorFlow","ASR":88.9,"GO":92.3,"Forwards":2700,"Backwards":135,"Time":5.0},
+    {"Attack":"SaliencyMap","Model":"InceptionV3","Library":"Keras","ASR":93.6,"GO":96.2,"Forwards":2300,"Backwards":115,"Time":4.3},
+    {"Attack":"ZOO","Model":"ResNet-101","Library":"PyTorch","ASR":90.5,"GO":94.0,"Forwards":2900,"Backwards":145,"Time":5.5},
+    {"Attack":"C&W2","Model":"MobileNet","Library":"TensorFlow","ASR":95.7,"GO":97.5,"Forwards":2100,"Backwards":105,"Time":3.7},
+    {"Attack":"CarliniWagner","Model":"DenseNet-121","Library":"Keras","ASR":92.1,"GO":95.0,"Forwards":2500,"Backwards":130,"Time":4.6},
+    {"Attack":"SquareAttack","Model":"ResNet-50","Library":"PyTorch","ASR":97.3,"GO":98.7,"Forwards":2300,"Backwards":120,"Time":4.1},
+    {"Attack":"Parsimonious","Model":"VGG-16","Library":"TensorFlow","ASR":91.5,"GO":94.3,"Forwards":2600,"Backwards":135,"Time":4.8},
+    {"Attack":"BoundaryAttack","Model":"InceptionV3","Library":"Keras","ASR":94.8,"GO":97.0,"Forwards":2200,"Backwards":125,"Time":4.2},
+    {"Attack":"BoundaryAttack","Model":"MobileNet","Library":"PyTorch","ASR":93.5,"GO":96.0,"Forwards":2400,"Backwards":125,"Time":4.3},
+    {"Attack":"ZOO","Model":"VGG-19","Library":"TensorFlow","ASR":89.2,"GO":92.6,"Forwards":2700,"Backwards":140,"Time":5.1},
+    {"Attack":"EAD","Model":"DenseNet-121","Library":"Keras","ASR":92.6,"GO":95.2,"Forwards":2500,"Backwards":130,"Time":4.6},
+    {"Attack":"FGSM","Model":"ResNet-50","Library":"PyTorch","ASR":97.1,"GO":98.5,"Forwards":2300,"Backwards":120,"Time":4.0},
+    {"Attack":"DeepFool","Model":"VGG-16","Library":"TensorFlow","ASR":90.9,"GO":93.7,"Forwards":2600,"Backwards":135,"Time":4.7},
+    {"Attack":"JSMA","Model":"InceptionV3","Library":"Keras","ASR":94.4,"GO":97.0,"Forwards":2200,"Backwards":125,"Time":4.2},
+    {"Attack":"C&W2","Model":"MobileNet","Library":"PyTorch","ASR":88.7,"GO":92.0,"Forwards":2900,"Backwards":145,"Time":5.4},
+    {"Attack":"CarliniWagner","Model":"VGG-19","Library":"TensorFlow","ASR":91.3,"GO":94.0,"Forwards":2700,"Backwards":140,"Time":5.0},
+    {"Attack":"Momentum","Model":"DenseNet-121","Library":"Keras","ASR":93.2,"GO":95.8,"Forwards":2500,"Backwards":130,"Time":4.5},
+    {"Attack":"SquareAttack","Model":"ResNet-50","Library":"PyTorch","ASR":96.2,"GO":97.8,"Forwards":2300,"Backwards":120,"Time":4.1},
+    {"Attack":"FGSM","Model":"VGG-16","Library":"TensorFlow","ASR":89.5,"GO":92.7,"Forwards":2600,"Backwards":135,"Time":4.8},
+    {"Attack":"DeepFool","Model":"InceptionV3","Library":"Keras","ASR":92.1,"GO":94.8,"Forwards":2500,"Backwards":130,"Time":4.6},
+    {"Attack":"JSMA","Model":"MobileNet","Library":"PyTorch","ASR":90.8,"GO":93.5,"Forwards":2800,"Backwards":140,"Time":5.2},
+    {"Attack":"C&W2","Model":"DenseNet-121","Library":"TensorFlow","ASR":94.6,"GO":97.2,"Forwards":2200,"Backwards":125,"Time":4.3},
+    {"Attack":"CarliniWagner","Model":"ResNet-50","Library":"PyTorch","ASR":87.9,"GO":91.2,"Forwards":3000,"Backwards":150,"Time":5.8},
+    {"Attack":"Momentum","Model":"VGG-19","Library":"TensorFlow","ASR":91.7,"GO":94.2,"Forwards":2700,"Backwards":140,"Time":5.1},
+    {"Attack":"SquareAttack","Model":"MobileNet","Library":"Keras","ASR":95.3,"GO":97.0,"Forwards":2300,"Backwards":120,"Time":4.0},
+    {"Attack":"FGSM","Model":"DenseNet-121","Library":"PyTorch","ASR":96.7,"GO":98.2,"Forwards":2400,"Backwards":125,"Time":4.2},
+    {"Attack":"DeepFool","Model":"ResNet-50","Library":"TensorFlow","ASR":89.8,"GO":93.0,"Forwards":2800,"Backwards":140,"Time":5.0},
+    {"Attack":"JSMA","Model":"VGG-16","Library":"Keras","ASR":92.5,"GO":95.0,"Forwards":2600,"Backwards":135,"Time":4.7},
+    {"Attack":"C&W2","Model":"InceptionV3","Library":"PyTorch","ASR":90.3,"GO":93.2,"Forwards":2900,"Backwards":145,"Time":5.3},
+    {"Attack":"CarliniWagner","Model":"MobileNet","Library":"TensorFlow","ASR":93.9,"GO":96.5,"Forwards":2200,"Backwards":125,"Time":4.1},
+    {"Attack":"Momentum","Model":"DenseNet-121","Library":"Keras","ASR":88.6,"GO":91.8,"Forwards":3000,"Backwards":150,"Time":5.5},
+    {"Attack":"SquareAttack","Model":"ResNet-50","Library":"PyTorch","ASR":94.1,"GO":96.0,"Forwards":2500,"Backwards":130,"Time":4.4},
+    {"Attack":"FGSM","Model":"VGG-16","Library":"TensorFlow","ASR":91.5,"GO":94.0,"Forwards":2700,"Backwards":140,"Time":5.1},
+    {"Attack":"DeepFool","Model":"InceptionV3","Library":"Keras","ASR":93.7,"GO":96.2,"Forwards":2300,"Backwards":120,"Time":4.3},
+    {"Attack":"JSMA","Model":"MobileNet","Library":"PyTorch","ASR":88.9,"GO":92.2,"Forwards":2800,"Backwards":140,"Time":5.2}
+    ],
+    "l2": [
+        {"Attack":"IMAGENET FGSM-l2","Model":"ResNet-50","Library":"PyTorch","ASR":98.2,"GO":99.5,"Forwards":2000,"Backwards":100,"Time":3.5},
+        {"Attack":"IMAGENET PGD-l2","Model":"VGG-16","Library":"TensorFlow","ASR":92.4,"GO":95.3,"Forwards":3000,"Backwards":150,"Time":4.8},
+        {"Attack":"IMAGENET DeepFool-l2","Model":"InceptionV3","Library":"Keras","ASR":95.1,"GO":97.2,"Forwards":2500,"Backwards":120,"Time":4.1}
+
+        ],
+    "l1":[
+        {"Attack":"IMAGENET FGSM-data4-l1","Model":"ResNet-50","Library":"PyTorch","ASR":98.2,"GO":99.5,"Forwards":2000,"Backwards":100,"Time":3.5},
+        {"Attack":"IMAGENET PGD-l1","Model":"VGG-16","Library":"TensorFlow","ASR":92.4,"GO":95.3,"Forwards":3000,"Backwards":150,"Time":4.8}],
+    "l0":[
+        {"Attack":"IMAGENET GSM-data4-l0","Model":"ResNet-50","Library":"PyTorch","ASR":98.2,"GO":99.5,"Forwards":2000,"Backwards":100,"Time":3.5},
+        {"Attack":"IMAGENET PGD-l0","Model":"VGG-16","Library":"TensorFlow","ASR":92.4,"GO":95.3,"Forwards":3000,"Backwards":150,"Time":4.8}]
+}

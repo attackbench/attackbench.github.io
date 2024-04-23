@@ -1,0 +1,198 @@
+<!-- Dropdown Selection -->
+<div class="row">
+    <div class="mt-2 col-md-12">
+    <p>
+        For CIFAR-10, we employ five different models. The first model is an undefended WideResNet-28-10 (denoted as <code>Standard</code>) from <a href="https://robustbench.github.io">Robustbench</a> and is a baseline non-robust model. 
+        As for robust models, we consider the defenses from: 
+        <a href="https://arxiv.org/abs/1906.06316">Zhang et al. (2020)</a> (denoted as <code>zhang_2020</code>) proposing a certified defense; 
+        <a href="https://arxiv.org/abs/1910.06259">Stutz et al. (2019)</a> (denoted as <code>stutz_2019</code>) offering a confidence calibration method combined with adversarial training to generalize against unseen attacks; 
+        <a href="https://arxiv.org/abs/1905.10510">Xiao et al. (2020)</a> (denoted as <code>xiao_2020</code>) introducing a novel activation function to enhance the model's robustness; and 
+        <a href="https://arxiv.org/abs/2302.04638">Wang et al. (2023)</a> (denoted as <code>wang_2023</code>), which combines data augmentation techniques with adversarial training.
+    </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4 col-6">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownModelCifar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Select Target Model
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownModelCifar">
+                <!--<button class="dropdown-item-cifar" type="button" data-model="global_optimality">global_optimality</button>-->
+                <button class="dropdown-item dropdown-item-cifar" type="button" data-model="standard">standard</button>
+                <button class="dropdown-item dropdown-item-cifar" type="button" data-model="stutz_2020">stutz_2020</button>
+                <button class="dropdown-item dropdown-item-cifar" type="button" data-model="wang_2023">wang_2023</button>
+                <button class="dropdown-item dropdown-item-cifar" type="button" data-model="xiao_2020">xiao_2020</button>
+                <button class="dropdown-item dropdown-item-cifar" type="button" data-model="zhang_2020">zhang_2020</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-6">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownAttackCifar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Select Threat Model
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownAttackCifar">
+                <button class="dropdown-item dropdown-item-cifar" type="button" data-attack="linf">Linf</button>
+                <button class="dropdown-item dropdown-item-cifar" type="button" data-attack="l2">L2</button>
+                <button class="dropdown-item dropdown-item-cifar" type="button" data-attack="l1">L1</button>
+                <button class="dropdown-item dropdown-item-cifar" type="button" data-attack="l0">L0</button>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<div class="tg-wrap">
+    <table class="tg" style="width: 100%;">
+        <thead>
+            <tr style="border-bottom: 1px solid black;">
+                <th class="tg-tb-center">Attack</th>
+                <!--<th class="tg-center">Model</th>-->
+                <th class="tg-tb-center">Library</th>
+                <th class="tg-tb-center" id="ASR">ASR (%) <span id="asr-filter" class="filter-symbol-cifar">&#x25B2;</span></th>
+                <th class="tg-tb-center" id="optimality">Optimality (%) <span id="go-filter" class="filter-symbol-cifar">&#x25BC;</span></th>
+                <th class="tg-tb-center" id="n_forwards">#Forwards <span id="forwards-filter" class="filter-symbol-cifar">&#x25B2;</span></th>
+                <th class="tg-tb-center" id="n_backwards">#Backwards <span id="backwards-filter" class="filter-symbol-cifar">&#x25B2;</span></th>
+                <th class="tg-tb-center" id="time">t(s) <span id="time-filter" class="filter-symbol-cifar">&#x25B2;</span></th>
+            </tr>
+        </thead>
+        <tbody class="benchmark-cifar"></tbody>
+    </table>
+</div>
+<!-- Pagination container -->
+<nav aria-label="Table Pagination" class="mt-2">
+    <ul class="pagination pagination-cifar justify-content-end">
+        <!-- Pagination links will be dynamically generated here -->
+    </ul>
+</nav>
+
+
+<script>
+    $(function () {
+        //var sortOrdersCifar = [false, false, false, true, false, false, false, false]; // Flags to track sorting order for each column
+        var sortOrdersCifar = {
+            "ASR": false,
+            "optimality": false,
+            "n_forwards": false,
+            "n_backwards": false,
+            "time": false
+        };
+        var pageSize = 15; // Number of rows per page
+        var currentPage = 1; // Current page
+        var totalPages = 1; // Total number of pages
+        var jsonDataCifar; // Store the JSON data
+        var selectedModelCifar = "standard" // Default model
+        var selectedAttackCifar = "linf"; // Default selected attack type
+
+        // Function to load JSON data and populate the table
+        function loadData(jsonFile) {
+            $.getJSON(jsonFile, function(data) {
+                jsonDataCifar = data; // Filter data based on selected attack
+                totalPages = Math.ceil(jsonDataCifar.length / pageSize); // Calculate total number of pages
+                //sortTable(4); // Sort the table based on the LO column by default
+
+                sortTable("optimality");
+                populateTable(); // Populate the initial table
+                renderPagination(); // Render pagination links
+            });
+        }
+
+        // Load data from default JSON file on page load
+        loadData(get_json_name(selectedModelCifar,selectedAttackCifar));
+
+        // Event listener for model selection dropdown
+        $(".dropdown-item-cifar[data-model]").click(function(event) {
+            event.preventDefault(); // Prevent the default anchor tag behavior
+            selectedModelCifar = $(this).data("model");
+
+            loadData(get_json_name(selectedModelCifar,selectedAttackCifar));            
+            updateDropdownButtonText($("#dropdownModelCifar"), "Select Target Model: " + $(this).text()); // Update dropdown button text
+        });
+
+        // Event listener for attack type selection dropdown
+        $(".dropdown-item-cifar[data-attack]").click(function(event) {
+            event.preventDefault(); // Prevent the default anchor tag behavior
+            selectedAttackCifar = $(this).data("attack");
+            
+            loadData(get_json_name(selectedModelCifar,selectedAttackCifar));            
+            updateDropdownButtonText($("#dropdownAttackCifar"), "Select Threat Model: " + $(this).text()); // Update dropdown button text
+        });
+
+        // Function to populate the table with data for the current page
+        function populateTable() {
+            var startIndex = (currentPage - 1) * pageSize; // Calculate start index for current page
+            var endIndex = Math.min(startIndex + pageSize, jsonDataCifar.length); // Calculate end index for current page
+            var pageData = jsonDataCifar.slice(startIndex, endIndex); // Get data for current page
+            $(".benchmark-cifar").empty(); // Clear existing rows
+            var altStyle = false; // Flag to track alternating row style
+            $.each(pageData, function(index, item) {
+                var row = $("<tr>");
+                // Add data to the row with alternating styles
+                row.append($("<td>").addClass(altStyle ? "tg-30first atkname" : "tg-30second atkname").text(item.attack));
+                //row.append($("<td>").addClass(altStyle ? "tg-30ck" : "tg-4bam").text(item.model));
+                row.append($("<td>").addClass(altStyle ? "tg-44first" : "tg-44second").text(item.library));
+                row.append($("<td>").addClass(altStyle ? "tg-44first" : "tg-44second").text(parseFloat(item.ASR.toPrecision(5))));
+                row.append($("<td>").addClass(altStyle ? "tg-44first" : "tg-44second").text(parseFloat(item.optimality.toPrecision(5))));
+                row.append($("<td>").addClass(altStyle ? "tg-44first" : "tg-44second").text(item.n_forwards));
+                row.append($("<td>").addClass(altStyle ? "tg-44first" : "tg-44second").text(item.n_backwards));
+                row.append($("<td>").addClass(altStyle ? "tg-44first" : "tg-44second").text(parseFloat(item.time.toPrecision(5))));
+
+                $(".benchmark-cifar").append(row);
+                altStyle = !altStyle; // Toggle the flag for alternating row style
+            });
+        }
+
+    // Function to render pagination links
+    function renderPagination() {
+        var paginationContainer = $(".pagination-cifar");
+        paginationContainer.empty(); // Clear existing pagination links
+        for (var i = 1; i <= totalPages; i++) {
+            var pageLink = $("<li>").addClass("page-item").append($("<a>").addClass("page-link").attr("href", "#").text(i));
+            if (i === currentPage) {
+                pageLink.addClass("active");
+            }
+            paginationContainer.append(pageLink);
+        }
+    }
+    // Event listener for pagination links
+    $(".pagination-cifar").on("click", ".page-link", function(event) {
+            event.preventDefault();
+            currentPage = parseInt($(this).text()); // Update current page
+            populateTable(); // Populate table with data for current page
+            renderPagination(); // Re-render pagination links
+    });
+
+    $(".tg-tb-center").click(function() {
+        var columnName = $(this).attr("id"); // Get the column name
+        sortTable(columnName); // Sort the table by the clicked column
+        sortOrdersCifar[columnName] = !sortOrdersCifar[columnName]; // Toggle sorting order for the clicked column
+        populateTable(); // Re-populate the table with sorted data
+        
+        var filterSymbol = $(this).find(".filter-symbol-cifar");
+        filterSymbol.html(sortOrdersCifar[columnName] ? "&#x25BC;": "&#x25B2;"); // Toggle filter symbol
+        renderPagination(); // Re-render pagination links
+    });
+
+    // Function to sort table by column
+    function sortTable(columnName) {
+        jsonDataCifar.sort(function(rowA, rowB) {
+            // Extract cell values of the specified column name
+            var cellA = parseFloat(rowA[columnName]);
+            var cellB = parseFloat(rowB[columnName]);
+            // Determine sorting order based on column name
+            return sortOrdersCifar[columnName] ? cellA - cellB : cellB - cellA;
+        });
+    }
+
+    // Function to update dropdown button text
+    function updateDropdownButtonText(dropdown, text) {
+        dropdown.text(text);
+    }
+
+    function get_json_name(model_name, threat_name){
+        return "assets/data/cifar10/" + model_name + "_" + threat_name + ".json"
+    }
+});
+</script>
