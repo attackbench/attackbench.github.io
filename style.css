@@ -303,8 +303,8 @@ hr.divider {
 .atkname{font-weight:normal;background-color:#FFF;}
 
 :root {
-    --textscale: 18px;
-    --headscale: 21px;
+    --textscale: 16px;
+    --headscale: 19px;
   }
 
 .tg .tg-tb-center{text-align:center;vertical-align:center;font-size:var(--headscale)}
