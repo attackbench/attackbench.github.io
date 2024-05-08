@@ -60,13 +60,13 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true" focusable="false" data-prefix="fab" fill="currentColor" class="bi bi-table" viewBox="0 0 24 24" style="width:24px;height:24px;margin-left:-12px;margin-right:12px" data-fa-i2svg="">
                             <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm15 2h-4v3h4zm0 4h-4v3h4zm0 4h-4v3h3a1 1 0 0 0 1-1zm-5 3v-3H6v3zm-5 0v-3H1v2a1 1 0 0 0 1 1zm-4-4h4V8H1zm0-4h4V4H1zm5-3v3h4V4zm4 4H6v3h4z"></path>
                         </svg>
-                        Leaderbord CIFAR10
+                        Leaderbord CIFAR-10
                     </a>
                     <a class="btn is-dark" role="button" href="#imagenet-benchmark-section">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true" focusable="false" data-prefix="fab" fill="currentColor" class="bi bi-table" viewBox="0 0 24 24" style="width:24px;height:24px;margin-left:-12px;margin-right:12px" data-fa-i2svg="">
                             <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm15 2h-4v3h4zm0 4h-4v3h4zm0 4h-4v3h3a1 1 0 0 0 1-1zm-5 3v-3H6v3zm-5 0v-3H1v2a1 1 0 0 0 1 1zm-4-4h4V8H1zm0-4h4V4H1zm5-3v3h4V4zm4 4H6v3h4z"></path>
                         </svg>
-                        Leaderbord Imagenet
+                        Leaderbord ImageNet
                     </a>
                 </div>
             </div>
@@ -74,7 +74,7 @@
     </div>
     <div class="outer-container">
     <div class="container-xl main-container">
-
+        <!--
         <div class="row">
             <div class="col-md-12" style="text-align: center">
                 <p class="stat">Abstract</p>
@@ -88,7 +88,7 @@
                 </div>
         </div>
         <br>
-
+        -->
         <!-- SECTION ---------------------------------------------------------------------- -->
         <h1>AttackBench</h1>
         <div class="row">
@@ -100,12 +100,12 @@
                         In stage (1), we construct a list of diverse non-robust and robust models to assess the attacks' impact on various settings, thus testing their adaptability to diverse defensive strategies. 
                     </li>
                     <li>
-                        In stage (2), we define an environment for testing gradient-based attacks under a systematic and reproducible protocol. 
-                        This step provides common ground with shared assumptions, advantages, and limitations. 
+                        In stage (2), we define an environment for testing gradient-based attacks under a systematic and reproducible protocol. Specifically,  <code>AttackBench</code> limits the number of forward and backward queries to the model, such that all attacks are compared within a given maximum query budget.
+                        This step provides common ground with shared assumptions, advantages, and limitations.
                         We then run the attacks against the selected models individually and collect the performance metrics of interest in our analysis, which are perturbation size, execution time, and query usage. 
                     </li>
                     <li>
-                        In stage (3), we gather all the previously-obtained results, comparing  attacks with the novel <code>local optimality</code> metric. 
+                        In stage (3), we gather all the previously-obtained results, comparing  attacks with the novel <code>local optimality</code> metric that quantifies how close an attack is to the optimal solution.
                     </li>
                     <li>
                         Finally, in stage (4), we aggregate the optimality results from all considered models, and in stage (5) we rank the attacks based on their average optimality, namely <code>global optimality</code>. 
@@ -173,7 +173,7 @@
         <hr class="divider" />
 
         <div class="row">
-            <h1><a id="cifar-benchmark-section">AttackBench CIFAR</a></h1>
+            <h1><a id="cifar-benchmark-section">AttackBench CIFAR-10</a></h1>
 
             <div class="col-md-12" id="cifar-benchmark-table"></div>
         </div>
@@ -181,7 +181,7 @@
         <hr class="divider" />
         
        <div class="row">
-            <h1><a id="imagenet-benchmark-section">AttackBench Imagenet</h1>
+            <h1><a id="imagenet-benchmark-section">AttackBench ImageNet</h1>
 
             <div class="col-md-12" id="imagenet-benchmark-table"></div>
         </div>
