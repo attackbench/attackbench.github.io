@@ -1,4 +1,6 @@
-<!-- Dropdown Selection -->
+
+
+
 <div class="row">
     <div class="mt-2 col-md-12">
     <p>
@@ -69,9 +71,24 @@
 </nav>
 
 
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            processEscapes: true
+        }
+    });
+</script>
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>
     $(function () {
-        //var sortOrders = [false, false, false, true, false, false, false, false]; // Flags to track sorting order for each column
+        // Funzione per rielaborare MathJax dopo ogni modifica del DOM
+        function renderMathJax() {
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+        }
+
         var sortOrdersImagenet = {
             "ASR": false,
             "optimality": true,
@@ -83,55 +100,52 @@
         var currentPageImagenet = 1; // Current page
         var totalPagesImagenet = 1; // Total number of pages
         var jsonDataImagenet; // Store the JSON data
-        var selectedModelImagenet = "standard_imagenet" // Default model
+        var selectedModelImagenet = "standard_imagenet"; // Default model
         var selectedAttackImagenet = "linf"; // Default selected attack type
 
         // Function to load JSON data and populate the table
         function loadDataImagenet(jsonFile) {
             $.getJSON(jsonFile, function(data) {
-                jsonDataImagenet = data; // Filter data based on selected attack
-                totalPagesImagenet = Math.ceil(jsonDataImagenet.length / pageSizeImagenet); // Calculate total number of pages
-                //sortTable(4); // Sort the table based on the LO column by default
-
+                jsonDataImagenet = data;
+                totalPagesImagenet = Math.ceil(jsonDataImagenet.length / pageSizeImagenet);
                 sortTableImagenet("optimality");
-                populateTableImagenet(); // Populate the initial table
-                renderPaginationImagenet(); // Render pagination links
+                populateTableImagenet();
+                renderPaginationImagenet();
+                renderMathJax();  // Rielabora MathJax dopo il caricamento dei dati
             });
         }
 
         // Load data from default JSON file on page load
-        loadDataImagenet(get_json_name(selectedModelImagenet,selectedAttackImagenet));
+        loadDataImagenet(get_json_name(selectedModelImagenet, selectedAttackImagenet));
 
         // Event listener for model selection dropdown
         $(".dropdown-item-imagenet[data-model]").click(function(event) {
-            event.preventDefault(); // Prevent the default anchor tag behavior
+            event.preventDefault();
             selectedModelImagenet = $(this).data("model");
 
-            loadDataImagenet(get_json_name(selectedModelImagenet,selectedAttackImagenet));            
-            updateDropdownButtonText($("#dropdownModelImagenet"), "Select Target Model: " + $(this).text()); // Update dropdown button text
+            loadDataImagenet(get_json_name(selectedModelImagenet, selectedAttackImagenet));
+            updateDropdownButtonText($("#dropdownModelImagenet"), "Select Target Model: " + $(this).text());
         });
 
         // Event listener for attack type selection dropdown
         $(".dropdown-item-imagenet[data-attack]").click(function(event) {
-            event.preventDefault(); // Prevent the default anchor tag behavior
+            event.preventDefault();
             selectedAttackImagenet = $(this).data("attack");
-            
-            loadDataImagenet(get_json_name(selectedModelImagenet,selectedAttackImagenet));            
-            updateDropdownButtonText($("#dropdownAttackImagenet"), "Select Threat Model: " + $(this).text()); // Update dropdown button text
+
+            loadDataImagenet(get_json_name(selectedModelImagenet, selectedAttackImagenet));
+            updateDropdownButtonText($("#dropdownAttackImagenet"), "Select Threat Model: " + $(this).text());
         });
 
         // Function to populate the table with data for the current page
         function populateTableImagenet() {
-            var startIndex = (currentPageImagenet - 1) * pageSizeImagenet; // Calculate start index for current page
-            var endIndex = Math.min(startIndex + pageSizeImagenet, jsonDataImagenet.length); // Calculate end index for current page
-            var pageData = jsonDataImagenet.slice(startIndex, endIndex); // Get data for current page
-            $(".benchmark-imagenet").empty(); // Clear existing rows
-            var altStyle = false; // Flag to track alternating row style
+            var startIndex = (currentPageImagenet - 1) * pageSizeImagenet;
+            var endIndex = Math.min(startIndex + pageSizeImagenet, jsonDataImagenet.length);
+            var pageData = jsonDataImagenet.slice(startIndex, endIndex);
+            $(".benchmark-imagenet").empty();
+            var altStyle = false;
             $.each(pageData, function(index, item) {
                 var row = $("<tr>");
-                // Add data to the row with alternating styles
                 row.append($("<td>").addClass(altStyle ? "tg-30first atkname" : "tg-30second atkname").text(item.attack));
-                //row.append($("<td>").addClass(altStyle ? "tg-30ck" : "tg-4bam").text(item.model));
                 row.append($("<td>").addClass(altStyle ? "tg-44first" : "tg-44second").text(item.library));
                 row.append($("<td>").addClass(altStyle ? "tg-44first" : "tg-44second").text(parseFloat(item.ASR.toPrecision(5))));
                 row.append($("<td>").addClass(altStyle ? "tg-44first" : "tg-44second").text(parseFloat(item.optimality.toPrecision(5))));
@@ -140,14 +154,15 @@
                 row.append($("<td>").addClass(altStyle ? "tg-44first" : "tg-44second").text(parseFloat(item.time.toPrecision(5))));
 
                 $(".benchmark-imagenet").append(row);
-                altStyle = !altStyle; // Toggle the flag for alternating row style
+                altStyle = !altStyle;
             });
+            renderMathJax();  // Rielabora MathJax dopo aver popolato la tabella
         }
 
         // Function to render pagination links
         function renderPaginationImagenet() {
             var paginationContainer = $(".pagination-imagenet");
-            paginationContainer.empty(); // Clear existing pagination links
+            paginationContainer.empty();
             for (var i = 1; i <= totalPagesImagenet; i++) {
                 var pageLink = $("<li>").addClass("page-item").append($("<a>").addClass("page-link").attr("href", "#").text(i));
                 if (i === currentPageImagenet) {
@@ -156,32 +171,31 @@
                 paginationContainer.append(pageLink);
             }
         }
+
         // Event listener for pagination links
         $(".pagination-imagenet").on("click", ".page-link", function(event) {
-                event.preventDefault();
-                currentPageImagenet = parseInt($(this).text()); // Update current page
-                populateTableImagenet(); // Populate table with data for current page
-                renderPaginationImagenet(); // Re-render pagination links
+            event.preventDefault();
+            currentPageImagenet = parseInt($(this).text());
+            populateTableImagenet();
+            renderPaginationImagenet();
         });
 
         $(".tg-tb-center").click(function() {
-            var columnName = $(this).attr("id"); // Get the column name
-            sortTableImagenet(columnName); // Sort the table by the clicked column
-            sortOrdersImagenet[columnName] = !sortOrdersImagenet[columnName]; // Toggle sorting order for the clicked column
-            populateTableImagenet(); // Re-populate the table with sorted data
-            
+            var columnName = $(this).attr("id");
+            sortTableImagenet(columnName);
+            sortOrdersImagenet[columnName] = !sortOrdersImagenet[columnName];
+            populateTableImagenet();
+
             var filterSymbol = $(this).find(".filter-symbol-imagenet");
-            filterSymbol.html(sortOrdersImagenet[columnName] ? "&#x25BC;": "&#x25B2;"); // Toggle filter symbol
-            renderPaginationImagenet(); // Re-render pagination links
+            filterSymbol.html(sortOrdersImagenet[columnName] ? "&#x25BC;": "&#x25B2;");
+            renderPaginationImagenet();
         });
 
         // Function to sort table by column
         function sortTableImagenet(columnName) {
             jsonDataImagenet.sort(function(rowA, rowB) {
-                // Extract cell values of the specified column name
                 var cellA = parseFloat(rowA[columnName]);
                 var cellB = parseFloat(rowB[columnName]);
-                // Determine sorting order based on column name
                 return sortOrdersImagenet[columnName] ? cellA - cellB : cellB - cellA;
             });
         }
@@ -192,7 +206,7 @@
         }
 
         function get_json_name(model_name, threat_name){
-            return "assets/data/imagenet/" + model_name + "_" + threat_name + ".json"
+            return "assets/data/imagenet/" + model_name + "_" + threat_name + ".json";
         }
     });
 </script>

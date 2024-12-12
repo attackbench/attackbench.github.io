@@ -201,7 +201,7 @@ p, .caption {
     margin-top: 20px;
 }
 
-.buttons .btn {
+.buttons .btn  {
     padding: 16px 32px;
     margin: 6px;
     border: none;
@@ -303,8 +303,8 @@ hr.divider {
 .atkname{font-weight:normal;background-color:#FFF;}
 
 :root {
-    --textscale: 16px;
-    --headscale: 19px;
+    --textscale: 15px;
+    --headscale: 17px;
   }
 
 .tg .tg-tb-center{text-align:center;vertical-align:center;font-size:var(--headscale)}
@@ -314,3 +314,36 @@ hr.divider {
 
 .tg .tg-30first{background-color:#F3F3F3;text-align:left;vertical-align:center;font-size:var(--textscale);}
 .tg .tg-30second{background-color:#FFF;text-align:left;vertical-align:bottom;font-size:var(--textscale);}
+
+
+
+.graph-container {
+    display: flex;  /* Usa Flexbox per gestire l'allineamento */
+
+    width: 100%; 
+    height: auto; /* Limita la larghezza massima */
+/* Centra il contenitore nella pagina */
+    padding: 0;
+
+    transform: translateX(-150px);  /* Trasla leggermente a sinistra, se necessario */
+}
+
+.toggle-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+.toggle-arrow {
+    position: absolute;
+    right: 0;
+    transition: transform 0.3s ease;
+    font-family: "Source Sans Pro",Calibri,Candara,Arial,sans-serif;
+    font-weight: 300;
+    line-height: 1.1;
+    color: black;
+    transform: rotate(90deg);
+}

@@ -1,3 +1,5 @@
+
+
 <!-- Dropdown Selection -->
 <div class="row">
     <div class="mt-2 col-md-12">
@@ -69,9 +71,25 @@
 </nav>
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            processEscapes: true
+        }
+    });
+</script>
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>
     $(function () {
-        //var sortOrdersCifar = [false, false, false, true, false, false, false, false]; // Flags to track sorting order for each column
+        // Funzione per rielaborare MathJax dopo ogni modifica del DOM
+        function renderMathJax() {
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+        }
+
+        // Configurazione e caricamento dei dati JSON, come nel tuo script esistente
+        // Aggiungi renderMathJax() in tutti i punti in cui modifichi il DOM, per esempio dopo l'aggiornamento delle tabelle
         var sortOrdersCifar = {
             "ASR": false,
             "optimality": false,
@@ -79,59 +97,49 @@
             "n_backwards": false,
             "time": false
         };
-        var pageSize = 15; // Number of rows per page
-        var currentPage = 1; // Current page
-        var totalPages = 1; // Total number of pages
-        var jsonDataCifar; // Store the JSON data
-        var selectedModelCifar = "standard" // Default model
-        var selectedAttackCifar = "linf"; // Default selected attack type
+        var pageSize = 15;
+        var currentPage = 1;
+        var totalPages = 1;
+        var jsonDataCifar;
+        var selectedModelCifar = "standard";
+        var selectedAttackCifar = "linf";
 
-        // Function to load JSON data and populate the table
         function loadData(jsonFile) {
-            $.getJSON(jsonFile, function(data) {
-                jsonDataCifar = data; // Filter data based on selected attack
-                totalPages = Math.ceil(jsonDataCifar.length / pageSize); // Calculate total number of pages
-                //sortTable(4); // Sort the table based on the LO column by default
-
+            $.getJSON(jsonFile, function (data) {
+                jsonDataCifar = data;
+                totalPages = Math.ceil(jsonDataCifar.length / pageSize);
                 sortTable("optimality");
-                populateTable(); // Populate the initial table
-                renderPagination(); // Render pagination links
+                populateTable();
+                renderPagination();
+                renderMathJax();  // Rielabora MathJax dopo il caricamento dei dati
             });
         }
 
-        // Load data from default JSON file on page load
-        loadData(get_json_name(selectedModelCifar,selectedAttackCifar));
+        loadData(get_json_name(selectedModelCifar, selectedAttackCifar));
 
-        // Event listener for model selection dropdown
-        $(".dropdown-item-cifar[data-model]").click(function(event) {
-            event.preventDefault(); // Prevent the default anchor tag behavior
+        $(".dropdown-item-cifar[data-model]").click(function (event) {
+            event.preventDefault();
             selectedModelCifar = $(this).data("model");
-
-            loadData(get_json_name(selectedModelCifar,selectedAttackCifar));            
-            updateDropdownButtonText($("#dropdownModelCifar"), "Select Target Model: " + $(this).text()); // Update dropdown button text
+            loadData(get_json_name(selectedModelCifar, selectedAttackCifar));
+            updateDropdownButtonText($("#dropdownModelCifar"), "Select Target Model: " + $(this).text());
         });
 
-        // Event listener for attack type selection dropdown
-        $(".dropdown-item-cifar[data-attack]").click(function(event) {
-            event.preventDefault(); // Prevent the default anchor tag behavior
+        $(".dropdown-item-cifar[data-attack]").click(function (event) {
+            event.preventDefault();
             selectedAttackCifar = $(this).data("attack");
-            
-            loadData(get_json_name(selectedModelCifar,selectedAttackCifar));            
-            updateDropdownButtonText($("#dropdownAttackCifar"), "Select Threat Model: " + $(this).text()); // Update dropdown button text
+            loadData(get_json_name(selectedModelCifar, selectedAttackCifar));
+            updateDropdownButtonText($("#dropdownAttackCifar"), "Select Threat Model: " + $(this).text());
         });
 
-        // Function to populate the table with data for the current page
         function populateTable() {
-            var startIndex = (currentPage - 1) * pageSize; // Calculate start index for current page
-            var endIndex = Math.min(startIndex + pageSize, jsonDataCifar.length); // Calculate end index for current page
-            var pageData = jsonDataCifar.slice(startIndex, endIndex); // Get data for current page
-            $(".benchmark-cifar").empty(); // Clear existing rows
-            var altStyle = false; // Flag to track alternating row style
-            $.each(pageData, function(index, item) {
+            var startIndex = (currentPage - 1) * pageSize;
+            var endIndex = Math.min(startIndex + pageSize, jsonDataCifar.length);
+            var pageData = jsonDataCifar.slice(startIndex, endIndex);
+            $(".benchmark-cifar").empty();
+            var altStyle = false;
+            $.each(pageData, function (index, item) {
                 var row = $("<tr>");
-                // Add data to the row with alternating styles
                 row.append($("<td>").addClass(altStyle ? "tg-30first atkname" : "tg-30second atkname").text(item.attack));
-                //row.append($("<td>").addClass(altStyle ? "tg-30ck" : "tg-4bam").text(item.model));
                 row.append($("<td>").addClass(altStyle ? "tg-44first" : "tg-44second").text(item.library));
                 row.append($("<td>").addClass(altStyle ? "tg-44first" : "tg-44second").text(parseFloat(item.ASR.toPrecision(5))));
                 row.append($("<td>").addClass(altStyle ? "tg-44first" : "tg-44second").text(parseFloat(item.optimality.toPrecision(5))));
@@ -140,59 +148,55 @@
                 row.append($("<td>").addClass(altStyle ? "tg-44first" : "tg-44second").text(parseFloat(item.time.toPrecision(5))));
 
                 $(".benchmark-cifar").append(row);
-                altStyle = !altStyle; // Toggle the flag for alternating row style
+                altStyle = !altStyle;
+            });
+            renderMathJax();  // Rielabora MathJax dopo aver popolato la tabella
+        }
+
+        function renderPagination() {
+            var paginationContainer = $(".pagination-cifar");
+            paginationContainer.empty();
+            for (var i = 1; i <= totalPages; i++) {
+                var pageLink = $("<li>").addClass("page-item").append($("<a>").addClass("page-link").attr("href", "#").text(i));
+                if (i === currentPage) {
+                    pageLink.addClass("active");
+                }
+                paginationContainer.append(pageLink);
+            }
+        }
+
+        $(".pagination-cifar").on("click", ".page-link", function (event) {
+            event.preventDefault();
+            currentPage = parseInt($(this).text());
+            populateTable();
+            renderPagination();
+        });
+
+        $(".tg-tb-center").click(function () {
+            var columnName = $(this).attr("id");
+            sortTable(columnName);
+            sortOrdersCifar[columnName] = !sortOrdersCifar[columnName];
+            populateTable();
+
+            var filterSymbol = $(this).find(".filter-symbol-cifar");
+            filterSymbol.html(sortOrdersCifar[columnName] ? "&#x25BC;" : "&#x25B2;");
+            renderPagination();
+        });
+
+        function sortTable(columnName) {
+            jsonDataCifar.sort(function (rowA, rowB) {
+                var cellA = parseFloat(rowA[columnName]);
+                var cellB = parseFloat(rowB[columnName]);
+                return sortOrdersCifar[columnName] ? cellA - cellB : cellB - cellA;
             });
         }
 
-    // Function to render pagination links
-    function renderPagination() {
-        var paginationContainer = $(".pagination-cifar");
-        paginationContainer.empty(); // Clear existing pagination links
-        for (var i = 1; i <= totalPages; i++) {
-            var pageLink = $("<li>").addClass("page-item").append($("<a>").addClass("page-link").attr("href", "#").text(i));
-            if (i === currentPage) {
-                pageLink.addClass("active");
-            }
-            paginationContainer.append(pageLink);
+        function updateDropdownButtonText(dropdown, text) {
+            dropdown.text(text);
         }
-    }
-    // Event listener for pagination links
-    $(".pagination-cifar").on("click", ".page-link", function(event) {
-            event.preventDefault();
-            currentPage = parseInt($(this).text()); // Update current page
-            populateTable(); // Populate table with data for current page
-            renderPagination(); // Re-render pagination links
+
+        function get_json_name(model_name, threat_name) {
+            return "assets/data/cifar10/" + model_name + "_" + threat_name + ".json";
+        }
     });
-
-    $(".tg-tb-center").click(function() {
-        var columnName = $(this).attr("id"); // Get the column name
-        sortTable(columnName); // Sort the table by the clicked column
-        sortOrdersCifar[columnName] = !sortOrdersCifar[columnName]; // Toggle sorting order for the clicked column
-        populateTable(); // Re-populate the table with sorted data
-        
-        var filterSymbol = $(this).find(".filter-symbol-cifar");
-        filterSymbol.html(sortOrdersCifar[columnName] ? "&#x25BC;": "&#x25B2;"); // Toggle filter symbol
-        renderPagination(); // Re-render pagination links
-    });
-
-    // Function to sort table by column
-    function sortTable(columnName) {
-        jsonDataCifar.sort(function(rowA, rowB) {
-            // Extract cell values of the specified column name
-            var cellA = parseFloat(rowA[columnName]);
-            var cellB = parseFloat(rowB[columnName]);
-            // Determine sorting order based on column name
-            return sortOrdersCifar[columnName] ? cellA - cellB : cellB - cellA;
-        });
-    }
-
-    // Function to update dropdown button text
-    function updateDropdownButtonText(dropdown, text) {
-        dropdown.text(text);
-    }
-
-    function get_json_name(model_name, threat_name){
-        return "assets/data/cifar10/" + model_name + "_" + threat_name + ".json"
-    }
-});
 </script>
